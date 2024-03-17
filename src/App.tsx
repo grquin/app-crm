@@ -67,6 +67,7 @@ import "./styles/antd.css";
 import "./styles/fc.css";
 import "./styles/index.css";
 
+
 const App: React.FC = () => {
   // This hook is used to automatically login the user.
   // We use this hook to skip the login page and demonstrate the application more quickly.
@@ -76,8 +77,24 @@ const App: React.FC = () => {
   //   return <FullScreenLoading />;
   // }
 
+  interface IResourceItem {
+    name: string;
+    // add other properties as needed
+  }
+  
+  const customTitleHandler = ({ resource, action, params }: { resource?: IResourceItem, action?: string, params?: { id?: string } }) => {
+    let title = "DashCSM"; // Default title
+  
+    if (resource && action) {
+      title = `${resource.name.charAt(0).toUpperCase() + resource.name.slice(1)} ${action.charAt(0).toUpperCase() + action.slice(1)} ${params && params.id ? params.id : ''} | DashCSM`;
+    }
+  
+    return title;
+  };
+
+
   return (
-    <AlgoliaSearchWrapper>
+    <AlgoliaSearchWrapper> 
       <BrowserRouter>
         <ConfigProvider theme={themeConfig}>
           <AntdApp>
@@ -284,7 +301,7 @@ const App: React.FC = () => {
                   </Route>
                 </Routes>
                 <UnsavedChangesNotifier />
-                <DocumentTitleHandler />
+                <DocumentTitleHandler handler={customTitleHandler}/>
               </Refine>
               <DevtoolsPanel />
             </DevtoolsProvider>
