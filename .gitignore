@@ -11,6 +11,9 @@
 # production
 /build
 
+# copied files
+App_copy.tsx
+
 # misc
 .DS_Store
 .env.local
