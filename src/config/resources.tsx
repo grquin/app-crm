@@ -20,6 +20,14 @@ export const resources: IResourceItem[] = [
     },
   },
   {
+    name: "search",
+    list: "/search",
+    meta: {
+      label: "Search",
+      icon: <SearchOutlined />, // Import the appropriate icon from Ant Design
+    },
+  },
+  {
     name: "events",
     list: "/calendar",
     create: "/calendar/create",
