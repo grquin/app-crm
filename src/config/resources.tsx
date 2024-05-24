@@ -8,6 +8,7 @@ import {
   ProjectOutlined,
   ShopOutlined,
   TeamOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 
 export const resources: IResourceItem[] = [

@@ -158,10 +158,7 @@ const App: React.FC = () => {
                     <Route path="/search" 
                            element={
                             <SearchTab>
-                             <>
-                              <p>Hello World</p>
-                            </>
-                         </SearchTab>
+                            </SearchTab>
                          } 
                       />
 
