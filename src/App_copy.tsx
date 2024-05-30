@@ -43,6 +43,10 @@ import {
   QuotesListPage,
   QuotesShowPage,
 } from "./routes/quotes";
+
+import SearchTab from './routes/search/search'; // Import SearchTab directly
+
+
 import { RegisterPage } from "./routes/register";
 import {
   KanbanCreatePage,
@@ -68,6 +72,19 @@ import "./styles/fc.css";
 import "./styles/index.css";
 
 
+/**
+ * App component renders the main application.
+ *
+ * It handles routing and layout for the authenticated and unauthenticated parts of the app.
+ *
+ * Some key things it renders:
+ *
+ * - Layout component for navigation etc
+ * - Authenticated route handling
+ * - Routes for each main section of the app
+ * - Page components for each route
+ * - Common providers for data, auth etc
+ */
 const App: React.FC = () => {
   // This hook is used to automatically login the user.
   // We use this hook to skip the login page and demonstrate the application more quickly.
@@ -81,20 +98,31 @@ const App: React.FC = () => {
     name: string;
     // add other properties as needed
   }
-  
-  const customTitleHandler = ({ resource, action, params }: { resource?: IResourceItem, action?: string, params?: { id?: string } }) => {
+
+  const customTitleHandler = ({
+    resource,
+    action,
+    params,
+  }: {
+    resource?: IResourceItem;
+    action?: string;
+    params?: { id?: string };
+  }) => {
     let title = "DashCSM"; // Default title
-  
+
     if (resource && action) {
-      title = `${resource.name.charAt(0).toUpperCase() + resource.name.slice(1)} ${action.charAt(0).toUpperCase() + action.slice(1)} ${params && params.id ? params.id : ''} | DashCSM`;
+      title = `${
+        resource.name.charAt(0).toUpperCase() + resource.name.slice(1)
+      } ${action.charAt(0).toUpperCase() + action.slice(1)} ${
+        params && params.id ? params.id : ""
+      } | DashCSM`;
     }
-  
+
     return title;
   };
 
-
   return (
-    <AlgoliaSearchWrapper> 
+    <AlgoliaSearchWrapper>
       <BrowserRouter>
         <ConfigProvider theme={themeConfig}>
           <AntdApp>
@@ -126,6 +154,14 @@ const App: React.FC = () => {
                     }
                   >
                     <Route index element={<DashboardPage />} />
+                    
+                    <Route path="/search" 
+                           element={
+                            <SearchTab>
+                            </SearchTab>
+                         } 
+                      />
+
                     <Route
                       path="/calendar"
                       element={
@@ -301,7 +337,7 @@ const App: React.FC = () => {
                   </Route>
                 </Routes>
                 <UnsavedChangesNotifier />
-                <DocumentTitleHandler handler={customTitleHandler}/>
+                <DocumentTitleHandler handler={customTitleHandler} />
               </Refine>
               <DevtoolsPanel />
             </DevtoolsProvider>
